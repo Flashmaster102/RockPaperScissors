@@ -18,6 +18,7 @@ function playRound(playerSelection,computerSelection)
 {
    let message="";
 
+   console.log("You chose: "+playerSelection+" and computer chose "+computerSelection);
    if((playerSelection>computerSelection)&&(playerSelection=="scissors"))
    {
       if(computerSelection=="rock") 
@@ -53,20 +54,25 @@ function game()
        {
          playerChoice=prompt("Please enter rock paper or scissors!");
          playerChoice=playerChoice.toLowerCase();
-         conditions=(playerChoice!="rock")||(playerChoice!="scissors")||(playerChoice!="paper");
+         conditions=(playerChoice!="rock")&&(playerChoice!="scissors")&&(playerChoice!="paper");
          if(conditions)
            console.log("Please enter a valid choice!");
        }while(conditions);
        result=playRound(playerChoice,getComputerChoice());
+       console.log(result);
        if(result.charAt(4)=="w")
           playerWins++;
-       else
+       else if(result.charAt(4)=="l")
           computerWins++;
+       else
+          console.log("No one wins!");
    }
    if(playerWins>computerWins)
      console.log("You are the winner! Results: You "+playerWins+" computer "+computerWins);
-   else
+   else if(playerWins<computerWins)
      console.log("You lost! Computer is the winner! Results: You "+playerWins+" computer "+computerWins);
+   else
+     console.log("No one wins It\'s a tie! Results: You "+playerWins+" computer "+computerWins);
 }
 
 console.log("-----Welcome to the rock paper scissors game!------");
