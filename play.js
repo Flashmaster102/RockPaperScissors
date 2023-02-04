@@ -13,3 +13,32 @@ let getComputerChoice=()=>
 
     return choice;
 }
+
+function playRound(playerSelection,computerSelection)
+{
+   let message="";
+   let playerSelectionLowercase=playerSelection.toLowerCase();
+
+   if((playerSelectionLowercase>computerSelection)&&(playerSelectionLowercase=="scissors"))
+   {
+      if(computerSelection=="rock") 
+         message="You lose. Rock beats Scissors.";
+      else 
+         message="You win. Scissors beats Paper.";
+   }
+   else if(playerSelectionLowercase>computerSelection)
+      message="You lose. Paper beats Rock.";
+   else if((playerSelectionLowercase<computerSelection)&&(playerSelectionLowercase=="paper"))
+   {
+      if(computerSelection=="rock") 
+         message="You win. Paper beats Rock.";
+      else
+         message="You lose. Scissors beats Paper.";
+   }
+   else if(playerSelectionLowercase<computerSelection)
+       message="You win. Rock beats Scissors.";
+   else
+       message="It\'s a tie";
+   
+   return message;
+}
