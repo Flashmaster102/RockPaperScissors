@@ -1,18 +1,4 @@
-let getComputerChoice=()=>
-{
-    let result=Math.floor(Math.random()*3);
-    let choice;
-    if(result==0)
-      choice="rock";
-    else if(result==1)
-      choice="paper";
-    else if(result==2)
-      choice="scissors";
-    else
-      console.log("Something went wrong!");
-
-    return choice;
-}
+let getComputerChoice=()=> Math.floor(Math.random()*3);
 
 function playRound(playerSelection,computerSelection)
 {
@@ -43,37 +29,45 @@ function playRound(playerSelection,computerSelection)
    return message;
 }
 
-function game()
+function game(playerChoice)
 {
-   let playerWins=0,computerWins=0,result;
-   let playerChoice,conditions;
+   let result;
+   let conditions;
+   const randomComputerChoice=["rock","paper","scissors"];
    
-   for(let i=0;i<5;i++)
-   {
-       do
-       {
-         playerChoice=prompt("Please enter rock paper or scissors!");
-         playerChoice=playerChoice.toLowerCase();
-         conditions=(playerChoice!="rock")&&(playerChoice!="scissors")&&(playerChoice!="paper");
-         if(conditions)
-           console.log("Please enter a valid choice!");
-       }while(conditions);
-       result=playRound(playerChoice,getComputerChoice());
-       console.log(result);
-       if(result.charAt(4)=="w")
-          playerWins++;
-       else if(result.charAt(4)=="l")
-          computerWins++;
-       else
-          console.log("No one wins!");
-   }
-   if(playerWins>computerWins)
-     console.log("You are the winner! Results: You "+playerWins+" computer "+computerWins);
-   else if(playerWins<computerWins)
-     console.log("You lost! Computer is the winner! Results: You "+playerWins+" computer "+computerWins);
+   result=playRound(playerChoice,randomComputerChoice[getComputerChoice()]);
+   console.log(result);
+   if(result.charAt(4)=="w")
+     playerWins++;
+   else if(result.charAt(4)=="l")
+     computerWins++;
    else
-     console.log("No one wins It\'s a tie! Results: You "+playerWins+" computer "+computerWins);
+     console.log("No one wins!");
+   
+   document.querySelector(".score").textContent="Computer: "+computerWins+"You: "+playerWins+"\n"+result;
+   
+   if(playerWins==5||computerWins==5)
+   {
+	 if(playerWins>computerWins)
+      document.querySelector(".score").textContent="Computer: "+computerWins+
+                                                       "You: "+playerWins+" You are the winner!";
+     else if(playerWins<computerWins)
+      document.querySelector(".score").textContent="Computer: "+computerWins+
+                                                       "You: "+playerWins+" You lost! Computer is the winner!";
+     else
+      console.log("No one wins It\'s a tie! Results: You "+playerWins+" computer "+computerWins);
+     playerWins=0;
+	 computerWins=0;
+   }
+   else
+	 console.log("Something is wrong!");
 }
 
+let playerWins=0,computerWins=0;
 console.log("-----Welcome to the rock paper scissors game!------");
-game();
+
+document.querySelector(".rock").addEventListener("click", function() { game("rock");});
+document.querySelector(".paper").addEventListener("click", function() { game("paper");});
+document.querySelector(".scissors").addEventListener("click", function() { game("scissors");});
+
+
